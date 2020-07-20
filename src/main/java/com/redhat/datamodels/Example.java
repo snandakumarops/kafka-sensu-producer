@@ -20,6 +20,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class Example {
 
+    Example(){
+
+    }
+
     @JsonProperty("check")
     private Check check;
     @JsonProperty("entity")
