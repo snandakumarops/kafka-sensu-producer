@@ -35,7 +35,7 @@ public class EventProducer {
 
         try {
             LinkedHashMap sensuCheckJson = new Gson().fromJson(json,LinkedHashMap.class);
-            System.out.println(sensuCheckJson);
+            System.out.println(sensuCheckJson.keySet());
             LinkedHashMap entityMap = new Gson().fromJson(sensuCheckJson.get("entity").toString(),LinkedHashMap.class);
             LinkedHashMap systemMap = new Gson().fromJson(entityMap.get("system").toString(),LinkedHashMap.class);
 
