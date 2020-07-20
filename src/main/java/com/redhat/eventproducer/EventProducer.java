@@ -34,8 +34,12 @@ public class EventProducer {
     public void postCase(String json,@javax.ws.rs.PathParam("custId") String customerId) {
 
         try {
-            Example sensuCheckJson = new Gson().fromJson(json,Example.class);
-            kafkaController.produce(sensuCheckJson.getEntity().getSystem().getHostname(),json);
+            LinkedHashMap sensuCheckJson = new Gson().fromJson(json,LinkedHashMap.class);
+            LinkedHashMap entityMap = new Gson().fromJson(sensuCheckJson.get("entity").toString(),LinkedHashMap.class);
+            LinkedHashMap systemMap = new Gson().fromJson(entityMap.get("system").toString(),LinkedHashMap.class);
+
+
+            kafkaController.produce(systemMap.get("hostName").toString(),json);
 
         }catch (Exception e) {
             e.printStackTrace();
