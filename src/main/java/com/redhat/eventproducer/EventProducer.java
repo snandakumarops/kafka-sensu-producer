@@ -40,7 +40,7 @@ public class EventProducer {
             LinkedHashMap systemMap = new Gson().fromJson(new Gson().toJson(entityMap.get("system")),LinkedHashMap.class);
 
             System.out.println(systemMap.keySet());
-            System.out.println(new Gson().toJson(systemMap.get("hostName")));
+            System.out.println(new Gson().toJson(systemMap.get("hostName").toString()));
             kafkaController.produce(new Gson().toJson(systemMap.get("hostName")),json);
 
         }catch (Exception e) {
