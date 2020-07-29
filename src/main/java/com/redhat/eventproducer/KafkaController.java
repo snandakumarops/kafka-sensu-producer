@@ -35,7 +35,7 @@ public class KafkaController {
         emitter.onComplete();
     }
 
-    @Outgoing("sensu-event-stream")
+    @Outgoing("sensu-failure")
     Publisher<KafkaMessage<String, String>> produceKafkaMessage() {
         return outgoingStream;
     }
