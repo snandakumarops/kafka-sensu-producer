@@ -1,4 +1,7 @@
 package com.redhat.eventproducer;
+import com.google.gson.Gson;
+import com.redhat.datamodels.Check;
+import com.redhat.datamodels.Example;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
@@ -11,6 +14,8 @@ import org.reactivestreams.Publisher;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
+import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 
 @ApplicationScoped
@@ -25,9 +30,15 @@ public class KafkaController {
         outgoingStream = Flowable.create(emitter -> this.emitter = emitter, BackpressureStrategy.BUFFER);
     }
 
-    public void produce(String id,String message) {
-        System.out.println(id+"::"+message);
-        emitter.onNext(KafkaMessage.of(id, message));
+    public void produce(String message, String type) {
+
+        Example check = new Gson().fromJson(message, Example.class);
+        check.getCheck().setExecuted(new Date().getTime());
+        Random rand = new Random();
+        check.setId("user"+rand.nextInt(1000));
+        System.out.println(check.getEntity().getSystem().getHostname());
+        check.getCheck().getMetadata().setName(type);
+        emitter.onNext(KafkaMessage.of(check.getEntity().getSystem().getHostname(), new Gson().toJson(check)));
     }
 
     @PreDestroy

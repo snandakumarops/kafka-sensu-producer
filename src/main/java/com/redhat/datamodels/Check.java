@@ -80,7 +80,7 @@ public class Check {
     @JsonProperty("duration")
     private Double duration;
     @JsonProperty("executed")
-    private Integer executed;
+    private Long executed;
     @JsonProperty("history")
     private List<History> history = null;
     @JsonProperty("issued")
@@ -273,12 +273,12 @@ public class Check {
     }
 
     @JsonProperty("executed")
-    public Integer getExecuted() {
+    public Long getExecuted() {
         return executed;
     }
 
     @JsonProperty("executed")
-    public void setExecuted(Integer executed) {
+    public void setExecuted(Long executed) {
         this.executed = executed;
     }
 
