@@ -589,6 +589,31 @@ public class EventProducer {
         }
     }
 
+
+    @GET
+    @Path("/cdp-remediate")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public void cdpRemediate() {
+
+
+        try {
+            LinkedHashMap sensuCheckJson = new Gson().fromJson(jsonString,LinkedHashMap.class);
+            System.out.println(sensuCheckJson.keySet());
+            LinkedHashMap entityMap = new Gson().fromJson(new Gson().toJson(sensuCheckJson.get("entity")),LinkedHashMap.class);
+            LinkedHashMap systemMap = new Gson().fromJson(new Gson().toJson(entityMap.get("system")),LinkedHashMap.class);
+
+            System.out.println(systemMap);
+            System.out.println(systemMap.get("hostname"));
+
+
+            kafkaController.produce(jsonString,"cdp-remediate");
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @GET
     @Path("/blackhole-host")
     @Consumes(MediaType.APPLICATION_JSON)
