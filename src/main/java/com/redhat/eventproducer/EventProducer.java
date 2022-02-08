@@ -393,7 +393,7 @@ public class EventProducer {
             System.out.println(systemMap.get("hostname"));
 
 
-            kafkaController.produce(jsonString,"check-disk-usage");
+            kafkaController.produce(jsonString,"check-disk-usa");
 
         }catch (Exception e) {
             e.printStackTrace();
