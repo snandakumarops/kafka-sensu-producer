@@ -631,7 +631,7 @@ public class EventProducer {
             System.out.println(systemMap.get("hostname"));
 
 
-            kafkaController.produce(jsonString,"black-hole-host");
+            kafkaController.produce(jsonString,"blackhole-host");
 
         }catch (Exception e) {
             e.printStackTrace();
